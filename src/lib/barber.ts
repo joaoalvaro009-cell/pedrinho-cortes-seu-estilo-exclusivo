@@ -1,7 +1,7 @@
 // Configuração editável do barbeiro — altere aqui horários, dias e telefone.
 export const BARBER = {
   name: "Pedrinho Cortes",
-  whatsapp: "5511999999999", // formato internacional sem +, ex: 55 11 99999 9999
+  whatsapp: "75991793513", // formato internacional sem +, ex: 55 11 99999 9999
   // Dias da semana indisponíveis (0 = domingo ... 6 = sábado)
   unavailableWeekdays: [0, 1], // domingo e segunda
   // Datas específicas bloqueadas (formato YYYY-MM-DD)
