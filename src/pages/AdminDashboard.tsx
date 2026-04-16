@@ -101,7 +101,7 @@ const AdminDashboard = () => {
   };
 
   const setPriceNotes = async (id: string, price: string, notes: string) => {
-    const update: Record<string, unknown> = { notes: notes || null };
+    const update: { notes: string | null; agreed_price?: number; status?: AppointmentStatus } = { notes: notes || null };
     if (price) {
       const p = parseFloat(price.replace(",", "."));
       if (!isNaN(p)) { update.agreed_price = p; update.status = "valor_enviado"; }
