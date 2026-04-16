@@ -14,16 +14,223 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      appointments: {
+        Row: {
+          access_token: string
+          agreed_price: number | null
+          appointment_date: string
+          appointment_time: string
+          barber_choice: boolean
+          cancellation_reason: string | null
+          client_name: string
+          client_phone: string | null
+          created_at: string
+          cut_type: string
+          id: string
+          notes: string | null
+          status: Database["public"]["Enums"]["appointment_status"]
+          updated_at: string
+        }
+        Insert: {
+          access_token?: string
+          agreed_price?: number | null
+          appointment_date: string
+          appointment_time: string
+          barber_choice?: boolean
+          cancellation_reason?: string | null
+          client_name: string
+          client_phone?: string | null
+          created_at?: string
+          cut_type: string
+          id?: string
+          notes?: string | null
+          status?: Database["public"]["Enums"]["appointment_status"]
+          updated_at?: string
+        }
+        Update: {
+          access_token?: string
+          agreed_price?: number | null
+          appointment_date?: string
+          appointment_time?: string
+          barber_choice?: boolean
+          cancellation_reason?: string | null
+          client_name?: string
+          client_phone?: string | null
+          created_at?: string
+          cut_type?: string
+          id?: string
+          notes?: string | null
+          status?: Database["public"]["Enums"]["appointment_status"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      availability_settings: {
+        Row: {
+          id: string
+          time_slots: string[]
+          unavailable_weekdays: number[]
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          time_slots?: string[]
+          unavailable_weekdays?: number[]
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          time_slots?: string[]
+          unavailable_weekdays?: number[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      blocked_dates: {
+        Row: {
+          blocked_date: string
+          created_at: string
+          id: string
+          reason: string | null
+        }
+        Insert: {
+          blocked_date: string
+          created_at?: string
+          id?: string
+          reason?: string | null
+        }
+        Update: {
+          blocked_date?: string
+          created_at?: string
+          id?: string
+          reason?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      cancel_appointment_by_token: {
+        Args: { _reason?: string; _token: string }
+        Returns: {
+          access_token: string
+          agreed_price: number | null
+          appointment_date: string
+          appointment_time: string
+          barber_choice: boolean
+          cancellation_reason: string | null
+          client_name: string
+          client_phone: string | null
+          created_at: string
+          cut_type: string
+          id: string
+          notes: string | null
+          status: Database["public"]["Enums"]["appointment_status"]
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "appointments"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      get_appointment_by_token: {
+        Args: { _token: string }
+        Returns: {
+          access_token: string
+          agreed_price: number | null
+          appointment_date: string
+          appointment_time: string
+          barber_choice: boolean
+          cancellation_reason: string | null
+          client_name: string
+          client_phone: string | null
+          created_at: string
+          cut_type: string
+          id: string
+          notes: string | null
+          status: Database["public"]["Enums"]["appointment_status"]
+          updated_at: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "appointments"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
+      get_booked_times: {
+        Args: { _date: string }
+        Returns: {
+          appointment_time: string
+        }[]
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      update_appointment_by_token: {
+        Args: { _new_date: string; _new_time: string; _token: string }
+        Returns: {
+          access_token: string
+          agreed_price: number | null
+          appointment_date: string
+          appointment_time: string
+          barber_choice: boolean
+          cancellation_reason: string | null
+          client_name: string
+          client_phone: string | null
+          created_at: string
+          cut_type: string
+          id: string
+          notes: string | null
+          status: Database["public"]["Enums"]["appointment_status"]
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "appointments"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
+      appointment_status:
+        | "aguardando_confirmacao"
+        | "confirmado"
+        | "valor_enviado"
+        | "remarcado"
+        | "cancelado"
+        | "concluido"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +357,16 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+      appointment_status: [
+        "aguardando_confirmacao",
+        "confirmado",
+        "valor_enviado",
+        "remarcado",
+        "cancelado",
+        "concluido",
+      ],
+    },
   },
 } as const
