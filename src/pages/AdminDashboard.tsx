@@ -18,6 +18,7 @@ import { Loader2, LogOut, MessageCircle, Copy, CalendarIcon, Settings, RefreshCw
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Appointment, AppointmentStatus, STATUS_LABEL, STATUS_COLOR, buildWhatsappUrl, buildClientLink } from "@/lib/appointments";
+import { AccountSettingsDialog } from "@/components/AccountSettingsDialog";
 
 const STATUS_OPTIONS: AppointmentStatus[] = [
   "aguardando_confirmacao", "confirmado", "valor_enviado", "remarcado", "cancelado", "concluido",
@@ -163,7 +164,10 @@ const AdminDashboard = () => {
             <h1 className="font-serif text-xl">Painel do Barbeiro</h1>
             <p className="text-xs text-muted-foreground">Pedrinho Cortes</p>
           </div>
-          <Button variant="outline" size="sm" onClick={logout}><LogOut className="h-4 w-4 mr-2" />Sair</Button>
+          <div className="flex items-center gap-2">
+            <AccountSettingsDialog />
+            <Button variant="outline" size="sm" onClick={logout}><LogOut className="h-4 w-4 mr-2" />Sair</Button>
+          </div>
         </div>
       </header>
 
