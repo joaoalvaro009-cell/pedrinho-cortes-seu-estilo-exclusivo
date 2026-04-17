@@ -8,7 +8,7 @@ import NotFound from "./pages/NotFound.tsx";
 import ClientAppointment from "./pages/ClientAppointment.tsx";
 import AdminLogin from "./pages/AdminLogin.tsx";
 import AdminDashboard from "./pages/AdminDashboard.tsx";
-import AdminResetPassword from "./pages/AdminResetPassword.tsx";
+
 
 const queryClient = new QueryClient();
 
@@ -22,7 +22,6 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/agendamento/:token" element={<ClientAppointment />} />
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/reset-password" element={<AdminResetPassword />} />
           <Route path="/admin" element={<AdminDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
