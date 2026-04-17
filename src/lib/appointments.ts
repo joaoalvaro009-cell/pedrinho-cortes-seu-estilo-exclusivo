@@ -22,7 +22,7 @@ export const STATUS_COLOR: Record<AppointmentStatus, string> = {
   concluido: "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30",
 };
 
-export const BARBER_WHATSAPP = "5511999999999"; // editável (dono pode alterar depois)
+export const BARBER_WHATSAPP = "5575991793513"; // Pedrinho — formato internacional sem +
 
 export function buildClientLink(token: string) {
   return `${window.location.origin}/agendamento/${token}`;

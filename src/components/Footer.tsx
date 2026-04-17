@@ -1,4 +1,5 @@
-import { Scissors } from "lucide-react";
+import { Scissors, Lock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -11,6 +12,14 @@ const Footer = () => {
         <p className="text-xs text-muted-foreground">
           © {new Date().getFullYear()} Pedrinho Cortes — Atendimento personalizado.
         </p>
+        <Link
+          to="/admin/login"
+          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground/70 hover:text-primary transition-colors"
+          aria-label="Área do barbeiro"
+        >
+          <Lock className="h-3 w-3" />
+          Área do barbeiro
+        </Link>
       </div>
     </footer>
   );
