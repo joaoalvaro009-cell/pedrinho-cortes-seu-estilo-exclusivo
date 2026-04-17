@@ -78,28 +78,29 @@ const Booking = () => {
     setSubmitting(true);
     const cutType = styleMode === "barber" ? "Deixar o barbeiro escolher o melhor estilo" : styleText.trim();
     const isoDate = format(date, "yyyy-MM-dd");
+    const accessToken = crypto.randomUUID();
 
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("appointments")
       .insert({
+        access_token: accessToken,
         client_name: name.trim(),
         client_phone: phone.trim() || null,
         appointment_date: isoDate,
         appointment_time: time,
         cut_type: cutType,
         barber_choice: styleMode === "barber",
-      })
-      .select()
-      .single();
+      });
 
     setSubmitting(false);
-    if (error || !data) {
-      toast.error("Não foi possível agendar. Tente novamente.");
+    if (error) {
+      console.error("Erro ao agendar:", error);
+      toast.error(`Não foi possível agendar: ${error.message}`);
       return;
     }
 
     const dataFmt = format(date, "EEEE, dd 'de' MMMM", { locale: ptBR });
-    const link = buildClientLink(data.access_token);
+    const link = buildClientLink(accessToken);
     const msg = `Olá, Pedrinho! Acabei de agendar um horário.
 
 *Nome:* ${name}
@@ -114,9 +115,8 @@ Aguardo sua confirmação. Pagamento combinado no local.`;
     window.open(buildWhatsappUrl(BARBER_WHATSAPP, msg), "_blank");
     toast.success("Agendamento criado! Redirecionando para o WhatsApp...");
 
-    // Redireciona para a página do cliente
     setTimeout(() => {
-      window.location.href = `/agendamento/${data.access_token}`;
+      window.location.href = `/agendamento/${accessToken}`;
     }, 1200);
   };
 
